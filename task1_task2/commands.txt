@@ -1,0 +1,95 @@
+master@MUBUNTU:~/hadoop-3.3.6/sbin$ start-dfs.sh
+Starting namenodes on [localhost]
+Starting datanodes
+Starting secondary namenodes [MUBUNTU]
+master@MUBUNTU:~/hadoop-3.3.6/sbin$ start-yarn.sh
+Starting resourcemanager
+Starting nodemanagers
+master@MUBUNTU:~/hadoop-3.3.6/sbin$ jps
+3456 ResourceManager
+2912 NameNode
+3587 NodeManager
+3944 Jps
+3035 DataNode
+3263 SecondaryNameNode
+master@MUBUNTU:~/hadoop-3.3.6/sbin$ hadoop fs -ls
+ls: `.': No such file or directory
+
+
+
+
+
+
+
+
+
+master@MUBUNTU:~$ hadoop fs -ls
+ls: `.': No such file or directory
+master@MUBUNTU:~$ hadoop fs -mkdir Mhdfs1
+mkdir: `hdfs://127.0.0.1:9000/user/master': No such file or directory
+master@MUBUNTU:~$ hdfs dfs -mkdir -p /user/master/
+master@MUBUNTU:~$ hdfs dfs -mkdir -p hdfs://127.0.0.1:9000/user/master
+master@MUBUNTU:~$ hadoop fs -mkdir Mhdfs1
+master@MUBUNTU:~$ hadoop fs -ls
+Found 1 items
+drwxr-xr-x   - master supergroup          0 2023-09-09 11:01 Mhdfs1
+master@MUBUNTU:~$ hadoop fs -touchz sample.txt
+
+
+
+master@MUBUNTU:~$ hadoop fs -copyFromLocal copytodfs.txt Mhdfs1
+master@MUBUNTU:~$ hadoop fs -ls
+Found 2 items
+drwxr-xr-x   - master supergroup          0 2023-09-09 11:09 Mhdfs1
+-rw-r--r--   1 master supergroup          0 2023-09-09 11:04 sample.txt
+master@MUBUNTU:~$ hadoop fs -ls Mhdfs1
+Found 1 items
+-rw-r--r--   1 master supergroup        178 2023-09-09 11:09 Mhdfs1/copytodfs.txt
+master@MUBUNTU:~$ 
+master@MUBUNTU:~$ hadoop fs -cat Mhdfs1/copytodfs.txt
+MASTER!!!
+
+FILE WAS ORIGINALLY CREATED IN LOCAS FILE SYSTEM, NOW WANT TO TRANSFER IT TO HDFS!
+
+FOR DOING ABOVE, I USE THE COMMAND:
+
+hadoop fs -copyFromLocal copytodfs.txt Mhdfs1
+
+
+we also can use the -cp command to copy within hdfs - hadoop fs -cp <filename> <destfoldername>
+
+we can also use the -mv command to move within hdfs - hadoop fs -mv <filename> <destfoldername>
+
+next command is du => disk usage ; 
+hadoop fs -du Mhdfs1
+can also use -dus for total storage.
+
+LIKE ABOVE, WE HAVE COPY FROM LOCAL AND MOVEFROMLOCAL AND COPYTOLOCAL AND MOVE TO LOCAL, USE '-' AND CAMEL CASE
+
+hadoop fs -getmerge -nl pathoffile1 pathoffile2 pathofdestfile
+here, 2 file in hdfs to 1 file in lfs
+nl here means newline of merge.
+
+for 2 files in lfs and 1 filein hdfs : 
+hadoop fs -appendToFile pathoffile1 pathoffile2 pathofdestfile
+
+to delete a file:
+hadoop fs -rm filepath
+
+
+
+to run the examples of hadoop pre installed:
+navigate to master@MUBUNTU:~/hadoop-3.3.6/share/hadoop/mapreduce$
+next push the input file to the same directory
+then run the following command:
+hadoop fs -mkdir Moutput1
+master@MUBUNTU:~/hadoop-3.3.6/share/hadoop/mapreduce$ hadoop jar hadoop-mapreduce-examples-3.3.6.jar wordcount Minput1.txt /Moutput1
+to view the output use:
+hadoop fs -cat /Moutput1/part-r-00000
+
+
+
+
+
+
+

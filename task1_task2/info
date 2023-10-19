@@ -1,0 +1,9 @@
+hadoop-streaming-3.3.6.jar
+hadoop jar /home/master/hadoop-3.3.6/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar -input /Mhdfs1/
+
+
+
+hadoop jar /home/master/hadoop-3.3.6/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar -input Mwordcount/Minput1.txt -output Mwordcount/Varun1 -mapper /home/master/Downloads/mapper.py -reducer /home/master/Downloads/reducer.py
+
+
+hadoop jar /home/master/hadoop-3.3.6/share/hadoop/tools/lib/hadoop-streaming-3.3.6.jar -input task1/sample_data.json -output task1/output1 -mapper /home/master/MHADOOP/map_t11.py -reducer /home/master/MHADOOP/red_t1.py
